@@ -206,7 +206,13 @@ setTimeout(function () {
             });
         },
 
+        onDocNuevodlg_addProducto: function () {
+            this.getView().byId("dlg_DocNuevoaddProducto").open();
+        },
 
+        onDocNuevoClosedlg_addProducto: function () {
+            this.getView().byId("dlg_DocNuevoaddProducto").close();
+        }
 
 
 

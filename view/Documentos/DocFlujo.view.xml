@@ -1,24 +1,24 @@
-
 <mvc:View
-	height="100%"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.m"
-	controllerName="pe.com.seidor.sap.decor.ventas.controller.Documentos.DocFlujo"
-	xmlns:l="sap.ui.layout" 
+    controllerName="pe.com.seidor.sap.decor.ventas.controller.Documentos.DocFlujo"
+    xmlns:core="sap.ui.core" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout" 
     xmlns:f="sap.ui.layout.form"
     xmlns:t="sap.ui.table" 
     xmlns:s="sap.m.semantic"
-    xmlns:u="sap.ui.unified"
-    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-		displayBlock="true">
+    xmlns:tnt="sap.tnt"
+    xmlns:smartForm="sap.ui.comp.smartform" 
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"    
+    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
 
  
-	<SplitContainer id="SplitAppId" initialMaster="MasterFlujo" initialDetail="pag_flujo_detail1" orientationChange="onOrientationChange">
+            <SplitContainer id="SplitAppId" initialMaster="MasterFlujo" initialDetail="DocProductosDetallado" orientationChange="onOrientationChange" mode="HideMode">
 
-		<masterPages>
+        <masterPages>
 
-			<s:MasterPage title="Flujo de Venta" id="MasterFlujo" class="cabeceraMaster">
+            <s:MasterPage title="Flujo de Venta" id="MasterFlujo" class="cabeceraMaster">
 
 
                     <List mode="SingleSelectMaster"  items="{/tipoCabeceraModel}" itemPress="onListaMasterFlujo">
@@ -28,44 +28,235 @@
                         </List>
 
 
-			</s:MasterPage>
+            </s:MasterPage>
 
 
-			
+            
 
 
 
-		</masterPages>
+        </masterPages>
 
 
-		<detailPages>
-<BusyDialog id="loadingControl" />
+        <detailPages>
 
-        <!--Dialogs-->
-        <!--dlg_MensajeAvisoFlujo-->
-             <core:Fragment fragmentName="pe.com.seidor.sap.decor.ventas.view.Documentos.FragDialogs.dlg_MensajeAvisoFlujo" type="XML"></core:Fragment>
-             
-        <!--dlg_DialogDocFlujo-->
-            <core:Fragment fragmentName="pe.com.seidor.sap.decor.ventas.view.Documentos.FragDialogs.dlg_DialogDocFlujoInicio" type="XML"></core:Fragment>
+            <s:DetailPage title="{/tituloDocumento}" id="DocProductosDetallado" class="cabecera_semanticDetail">
 
-			<s:DetailPage
-					title="Flujo de Venta" id="pag_flujo_detail1" class="cabecera_semanticDetail">
+                
+        <!--s:customHeaderContent>
+                    <Button class="btnSeleccionar" id="btnSelectAll" text="Seleccionar Todo" type="Emphasized"  tooltip="" press="onSeleccionarTodoMaterial"/>
+                    <Button class="btnSeleccionar" id="btnSelectNothing" text="Deseleccionar" type="Emphasized"  tooltip="" press="onSeleccionarNingunMaterial"/>
+                    <Button id="btnMulti" icon="sap-icon://multiselect-all"  tooltip="" press="onMultiSelect"/>
+                    <Button id="btnSingle" icon="sap-icon://decline"  tooltip="" press="onSingleSelect"/>
+                </s:customHeaderContent-->
+                <s:content>
+                    <!--dlg_DocNuevoaddProducto-->
+            <core:Fragment fragmentName="pe.com.seidor.sap.decor.ventas.view.Documentos.FragDialogs.dlg_DocNuevoaddProducto" type="XML"></core:Fragment>
+                <Page class="cabecera_productoDetallado">
+         <customHeader width="100%" >
+                            <Toolbar>
+                                 <tnt:ToolHeader width="100%">
+        <Button icon="sap-icon://search" type="Transparent" press="onDocNuevodlg_buscar" visible="{/pedido/enabledIconoBuscar}">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="NeverOverflow" />
+                                </layoutData>
+                            </Button>
+                            <Button  type="Transparent" press="onAsignarAmbiente" text="Asignar Ambiente" visible="{/pedido/enabledIconoBuscar}">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="NeverOverflow" />
+                                </layoutData>
+                            </Button>
+        <ToolbarSpacer/>
+        <ToolbarSpacer width="8%"/>
+                <FlexBox
+                    alignItems="Start"
+                    justifyContent="Center">
+                    <items>
+                        <!--core:Icon src="sap-icon://activate">
+                            </core:Icon-->
+                            <Text text="Lista de Materiales" wrapping="false">
+                                <layoutData>
+                                    <OverflowToolbarLayoutData priority="Disappear" />
+                                </layoutData>
+                            </Text>
+                    </items>
+                </FlexBox>
+        
+        <ToolbarSpacer/>
+        <Button text="Stock por Llegar" type="Transparent" press="goStockporLlegar" visible="{/pedido/enabledIconoAdd}">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow" />
+                        </layoutData>
+                    </Button>
+                    <Button text="Stock por Pedir" type="Transparent" press="goStockporPedir" visible="{/pedido/enabledIconoAdd}">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow" />
+                        </layoutData>
+                    </Button>
+        <Button icon="sap-icon://add" type="Transparent" press="onDocNuevodlg_addProducto" visible="{/pedido/enabledIconoAdd}">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow" />
+                        </layoutData>
+                    </Button>
+ 
+    </tnt:ToolHeader>
+                            </Toolbar>
+                        </customHeader>
+           
+    
+        <Panel>
+                <ScrollContainer
+                    resize="auto"
+        width="auto"
+        vertical="true"
+        horizontal="false"
+        focusable="true">
 
-						<s:content>
-                            <f:Form editable="true">
-                           <!-- <f:title>
-                                <core:Title text="Address" />
-                            </f:title> -->
+       
+                <List id="listaMasterMateriales"   mode="MultiSelect" growing="false" growingThreshold="30" growingDirection="Upwards" indicatorDelete="false" indicadorSelect="false" busyIndicatorDelay="200" includeItemInSelection="true" class="listaMasterMateriales" enableBusyIndicator="false" growingTriggerText="Previous Products" noDataText="No hay Productos" itemPress="onSelectItemProducto"
+                              items="{
+                        path : '/listaMaterial'
+                        }"
+                ><!--includeItemInSelection="true"-->
+                
+                
+
+                <CustomListItem height="auto" change="onSelectItemProducto">
+                <FlexBox
+                        alignItems="Start"
+                        justifyContent="SpaceBetween" >
+                        <items>
+                                <FlexBox
+                        alignItems="Start">
+                        <items>
+                                <FlexBox
+                                                height="38px"
+                                            alignItems="End">
+                                                <items>
+                                <Button width="70%" height="auto"  id="btnImagenProducto" type="Transparent" icon="sap-icon://camera" press="onCamera">
+                                    <layoutData>
+                                <FlexItemData growFactor="1" />
+                            </layoutData>
+                                </Button>
+                            </items>
+                        </FlexBox>
+                                <VBox justifyContent="Center" width="35px">
+                                </VBox>
+                                
+                                <Text width="100%" class="lblDetalleProducto" text="{Posicion} {CodMaterialCorto}  Cant: {Cantidad} - {CodUMedida} Rend: {Rendimiento} \n {DescMaterial} \n {CodCentro} {DescCentro} / {CodAlmacen} / {CodLote}">
+                                    <layoutData>
+                                <FlexItemData growFactor="3" />
+                            </layoutData>
+                                </Text>
+
+                                </items>
+                            </FlexBox>
+
+                                <Text width="100%" class="lblDetalleProducto" text="Peso TotaL: {Peso} - P.Unita S/IGV: {PrecioUnitario} - Dscto: {Vdscto} %  \n Tipo Mat: {TipoMaterial} - Tipo Pos: {TipoPosicion} - Total Dcto: {TotalDctos} \n Prioridad Ent.: {PrioridadEntrega} - {FechaCantConfStr} SubTotal: {SubTotal} - Total C/IGV: {Total} \n Percepcion: {TotPercep} - Ambiente: {DesGrupoMat} - Opcion: {Opcion}" textAlign="Right">
+                                    <layoutData>
+                                <FlexItemData growFactor="2" />
+                            </layoutData>
+                                </Text>
+
+                                <VBox justifyContent="Center" width="35px">
+                                </VBox>
+
+                                <FlexBox
+                                    height="45px"
+                        alignItems="End"
+                        justifyContent="End">
+                        <items>
+                                <Button width="100%" height="auto" id="btnDetalleProducto" type="Transparent" icon="sap-icon://navigation-right-arrow" press="onMasterProductoSeleccionarMaterial">
+                                    <layoutData>
+                                <FlexItemData growFactor="2" />
+                            </layoutData>
+                                </Button>
+                            </items>
+                            </FlexBox>
+
+                    </items>
+                </FlexBox>
+                </CustomListItem>
+
+                <!--CustomListItem >
+
+
+                    <FlexBox
+                        alignItems="Start"
+                        justifyContent="SpaceBetween" >
+                        <items>
+                            <VBox>
+                            <FlexBox
+                                                height="65px"
+                                            alignItems="Start">
+                                                <items>
+                                                    <Button id="btnImagenLista" type="Transparent" icon="sap-icon://camera" press="onImagenListaProductos"/>
+                                                </items>
+                                            </FlexBox>
+                                            <layoutData>
+                                    <l:GridData
+                                        span="L1 M1 S1"/>
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <FlexBox
+                                alignItems="Start" class="primerBloqueDetalle">
+                                <items>
+                                                <f:Form editable="true" class="detalleListaMaterial">
+                                            <f:layout>
+                                                <f:ResponsiveGridLayout
+                                                     labelSpanXL="12"
+                                                    labelSpanL="12"
+                                                    labelSpanM="12"
+                                                    labelSpanS="12"
+                                                    adjustLabelSpan="false"
+                                                    emptySpanXL="0"
+                                                    emptySpanL="0"
+                                                    emptySpanM="0"
+                                                    emptySpanS="0"
+                                                    columnsXL="1"
+                                                    columnsL="1"
+                                                    columnsM="1"
+                                                    singleContainerFullSize="false" />
+                                            </f:layout>
+                                            <f:formContainers>
+                                                
+                                                <f:FormContainer>
+                                                    <f:formElements>
+                                                         <f:FormElement  label="{Posicion} {CodMaterialCorto} Cant: {Cantidad} - {CodUMedida} Rend: {Rendimiento}">
+                                                         </f:FormElement>
+                                                            <f:FormElement class="subirLabels"  label="{DescMaterial}"/>
+                                                            <f:FormElement class="subirLabels" label="{CodCentro} {DescCentro} / {DescAlmacen} / {CodLote}"/>
+                                                    </f:formElements>
+                                                </f:FormContainer>
+                                            </f:formContainers>
+                                        </f:Form>
+
+                            </items>
+                        </FlexBox>
+                                <layoutData>
+                                    <l:GridData
+                                        span="L7 M7 S7"/>
+                                </layoutData>
+                        </VBox>
+
+                        
+                        <VBox>
+                                <FlexBox
+                    alignItems="End" class="segundoBloqueDetalle">
+                    <items>
+
+                        <f:Form editable="true" class="detalleListaMaterial1">
                             <f:layout>
                                 <f:ResponsiveGridLayout
-                                    labelSpanXL="3"
-                                    labelSpanL="3"
-                                    labelSpanM="3"
-                                    labelSpanS="3"
+                                     labelSpanXL="12"
+                                    labelSpanL="12"
+                                    labelSpanM="12"
+                                    labelSpanS="12"
                                     adjustLabelSpan="false"
-                                    emptySpanXL="4"
-                                    emptySpanL="4"
-                                    emptySpanM="4"
+                                    emptySpanXL="0"
+                                    emptySpanL="0"
+                                    emptySpanM="0"
                                     emptySpanS="0"
                                     columnsXL="1"
                                     columnsL="1"
@@ -73,97 +264,115 @@
                                     singleContainerFullSize="false" />
                             </f:layout>
                             <f:formContainers>
-                                <f:FormContainer>
+                                 <f:FormContainer>
                                     <f:formElements>
-                                        <f:FormElement label="Código">
-                                            <f:fields>
-                                                <SearchField placeholder="Ingrese Código de Material" id="txt_codigo_anadir_material" showSearchButton="false">
-                                                    <layoutData>
-                                        <l:GridData span="L4 M4 S4"/>
-                                    </layoutData>
-                                                </SearchField>
-                                                
-                                                <u:FileUploader
-                                                    width="20%"
-                                                id="fileUploader"
-                                                name="myFileUpload"
-                                                uploadUrl="upload/"
-                                                buttonOnly="true"
-                                                buttonText= " "
-                                                multiple="true"
-                                                icon= "sap-icon://bar-code"
-                                                uploadComplete="handleUploadComplete"
-                                                change="handleValueChange"
-                                                typeMissmatch="handleTypeMissmatch"
-                                                style="Transparent"
-                                                fileType="txt,jpg,png"
-                                                mimeType= "image/*"
-                                                placeholder="">
-                                                    <u:parameters>
-                                                        <u:FileUploaderParameter
-                                                            name="param1"
-                                                            value="Foo"/>
-                                                        <u:FileUploaderParameter
-                                                            name="param2"
-                                                            value="bar"/>
-                                                    </u:parameters>
-                                                    <u:headerParameters>
-                                                        <u:FileUploaderParameter
-                                                            name="headerParam1"
-                                                            value="Foo"/>
-                                                        <u:FileUploaderParameter
-                                                            name="headerParam2"
-                                                            value="bar"/>
-                                                    </u:headerParameters>
-                                                </u:FileUploader>
-                                            </f:fields>
-                                        </f:FormElement>
-                                        <f:FormElement label="Cantidad">
-                                            <f:fields>
-                                                <!--Button
-                                                text="Upload File"
-                                                press="handleUploadPress"/-->
-                                                <Input value="1" id="txt_cantidad_anadir_material"></Input>
-                                                
-                                            </f:fields>
-                                        </f:FormElement>
-                                        <f:FormElement label="Ambiente">
-                                            <f:fields>
-                                                <Select items="{ path : '/dataIni/lstPreguntas/5/listaResp' }" required="true" id="com_ambiente_anadir_material">
-                                                    <core:Item key="{Codigo}" text="{= ${Codigo} === ''? 'Seleccione' : ${Descripcion}}"/>
-                                                </Select>
-                                            </f:fields>
-                                        </f:FormElement>
-                                        <f:FormElement label="Opción Ambiente">
-                                            <f:fields>
-                                                <Select  required="true" id="com_opcion_anadir_material">
-                                                <core:Item key="" text="Ingrese la Opción"/>    
-                                                <core:Item key="01" text="01"/>
-                                                <core:Item key="02" text="02"/>
-                                                <core:Item key="03" text="03"/>
-                                                <core:Item key="04" text="04"/>
-                                                <core:Item key="05" text="05"/>
-                                                <core:Item key="06" text="06"/>
-                                            </Select>
-                                            </f:fields>
-                                        </f:FormElement>
+                                        
+                                       <f:FormElement  label="Peso Total: {Peso} - P.Unita S/IGV: {PrecioUnitario} - Dscto: %"/>
+                                        
+                                        <f:FormElement class="subirLabels" label="Tipo Mat.: {TipoMaterial} - Tipo Pos: {TipoPosicion} - Total Dscto.: {/pedido/TotalDcto} "/>
+                                        
+                                        <f:FormElement class="subirLabels" label="Prioridad Ent: {PrioridadEntrega} - {FechaCantConfStr} / SubTotal: {SubTotal} - Total C/IGV: {Total}"/>
+                                        
+                                        <f:FormElement class="subirLabels" label="Percepcion: {TotPercep} - Ambiente: {DesGrupoMat} - Opcion: {Opcion}"/>
+                                        
                                     </f:formElements>
                                 </f:FormContainer>
                             </f:formContainers>
                         </f:Form>
-                        <core:HTML content='&lt;img id=&quot;qr-code&quot; src=&quot;img/qrcode.png&quot; style=&quot;display:none&quot;  /&gt;'>
-                                                    
-                                                </core:HTML>
 
-						</s:content>
+                        </items>
+                        </FlexBox>
+                       
+                                <layoutData>
+                                    <l:GridData
+                                        span="L3 M3 S3"/>
+                                </layoutData>
+                            </VBox>
+
+                            <VBox>
+                                            <FlexBox
+                                                height="65px"
+                                            alignItems="End">
+                                                <items>
+                                                    <Button id="btnDetalleProducto" type="Transparent" icon="sap-icon://navigation-right-arrow" press="onMasterProductoSeleccionarMaterial"/>
+                                                </items>
+                                            </FlexBox>
+                                            <layoutData>
+                                    <l:GridData
+                                        span="L1 M1 S1"/>
+                                </layoutData>
+                            </VBox>
+                        </items>
+                    </FlexBox>
+
+                </CustomListItem-->
+                </List>
+
+
+    </ScrollContainer>
+                </Panel>  
+            </Page>
+        </s:content>
+        <s:customFooterContent>
+            <Bar>
+                <contentLeft>
+                    <Button icon="sap-icon://delete" type="Transparent" press="onEliminarMaterial" 
+                        visible="{/pedido/enabledIconoBorrar}" >
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow" />
+                        </layoutData>
+                    </Button>
+                    <Button  type="Transparent"  text="Dcto."
+                        visible="{/pedido/enabledIconoBorrar}" press="onDescuentos">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow" />
+                        </layoutData>
+                    </Button>
+                <Button  type="Transparent"  text="Stock Disp."
+                        visible="{/pedido/enabledIconoBorrar}" press="onCentroAlmacenLote">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow" />
+                        </layoutData>
+                    </Button>
+                </contentLeft>
+                <contentMiddle>
+                    <!--Text class="txt_Total_Dscto" text="Tot.Doc.: S/. {} (c/IGV) | Tot.Dcto. : S/. {}" ></Text-->
+                    <Text class="txt_Total_Dscto" id="txt_Total" text="Tot.Doc.: S/. " ></Text>
+                    <Text class="monto_Total_Dscto" text="{
+                                                            path: '/pedido/Total'}"></Text><!--"{
+                                                            path: '/pedido/Total',
+                                                            type: 'sap.ui.model.type.Float',
+                                                            formatOptions: {
+                                                                 decimalSeparator : '.',
+                                                                minFractionDigits: 2,
+                                                                maxFractionDigits: 2
+                                                            } }"-->
+
+                    <Text class="txt_Total_Dscto" id="txt_Dscto" text="Tot.Dcto.: S/. "></Text>
+                    <Text class="monto_Total_Dscto" text="{
+                                                            path: '/pedido/TotalDcto',
+                                                            type: 'sap.ui.model.type.Float',
+                                                            formatOptions: {
+                                                                decimalSeparator : '.',
+                                                                minFractionDigits: 2,
+                                                                maxFractionDigits: 2
+                                                            } }"></Text>
+                </contentMiddle>
+                <contentRight>
+                    <Button icon="sap-icon://refresh" tooltip="" text="" press="onBtnRecalcular" visible="{/pedido/enabledBtn}">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow" />
+                        </layoutData>
+                    </Button>
+                </contentRight>
+            </Bar>
+        </s:customFooterContent>
+        <s:pagingAction>
+            <Button icon="sap-icon://save"  tooltip="Guardar" press="onBtnGuardarDocumento" visible="{/pedido/enabledBtnGuardar}"/>
+        </s:pagingAction>
+    </s:DetailPage>
+        </detailPages>
  
-			</s:DetailPage>
-
-
-
- 
-		</detailPages>
- 
-	</SplitContainer>
+    </SplitContainer>
  
 </mvc:View>
