@@ -52,59 +52,107 @@
 					title="Flujo de Venta" id="pag_flujo_detail1" class="cabecera_semanticDetail">
 
 						<s:content>
-                            <t:TreeTable
-                                    id="treeTable"
-                                    selectionMode="Single"
-                                    enableColumnReordering="true"
-                                    expandFirstLevel="false"
-                                    visibleRowCountMode="Auto"
-                                    rows="{
-                                        path : '/flujoTemporal1',
-                                        parameters : {
-                                            countMode: 'Inline'
-                                        }
-                                    }" class="arbolFlujo">
-
-                                    <t:columns >
-
-                                        <t:Column  width="40%" minScreenWidth="Tablet" label="Tipo de Documento" hAlign="Center">
-                                            <t:template>
-                                                <Title  text="{TipoDocumento}" wrapping="false" />
-                                            </t:template>
-                                        </t:Column>
-
-                                        <t:Column width="10%" minScreenWidth="Tablet" label="Número Doc." hAlign="Center">
-                                            <t:template>
-                                                <Text text="{NumDocumento}" wrapping="false" />
-                                            </t:template>
-                                        </t:Column>
-
-                                        <t:Column width="10%" minScreenWidth="Tablet" label="Fecha Doc." hAlign="Center">
-                                            <t:template>
-                                                <Text text="{DocFechaStr}" wrapping="false" />
-                                            </t:template>
-                                        </t:Column>
-
-                                        <t:Column width="10%" minScreenWidth="Tablet" label="Estado Doc." hAlign="Center">
-                                            <t:template>
-                                                <Text text="{Estado}" wrapping="false" />
-                                            </t:template>
-                                        </t:Column>
-
-                                        <t:Column width="20%" minScreenWidth="Tablet" label="Referencia" hAlign="Center">
-                                            <t:template>
-                                                <Text text="{Referencia}" wrapping="false"  />
-                                            </t:template>
-                                        </t:Column>
-                                        <t:Column  width="10%" minScreenWidth="Tablet" label="Acción" hAlign="Center">
-                                            <t:template>
-                                                <Button class="btnActionFlujo" icon="sap-icon://navigation-right-arrow" press="onItemTreeTable" wrapping="false" visible="{= ${TipoDocumento} === 'Entrega'? true : false }"/>
-                                            </t:template>
-                                        </t:Column>
-
-                                    </t:columns>
-
-                                </t:TreeTable>
+                            <f:Form editable="true">
+                           <!-- <f:title>
+                                <core:Title text="Address" />
+                            </f:title> -->
+                            <f:layout>
+                                <f:ResponsiveGridLayout
+                                    labelSpanXL="3"
+                                    labelSpanL="3"
+                                    labelSpanM="3"
+                                    labelSpanS="3"
+                                    adjustLabelSpan="false"
+                                    emptySpanXL="4"
+                                    emptySpanL="4"
+                                    emptySpanM="4"
+                                    emptySpanS="0"
+                                    columnsXL="1"
+                                    columnsL="1"
+                                    columnsM="1"
+                                    singleContainerFullSize="false" />
+                            </f:layout>
+                            <f:formContainers>
+                                <f:FormContainer>
+                                    <f:formElements>
+                                        <f:FormElement label="Código">
+                                            <f:fields>
+                                                <SearchField placeholder="Ingrese Código de Material" id="txt_codigo_anadir_material" showSearchButton="false">
+                                                    <layoutData>
+                                        <l:GridData span="L7 M7 S7"/>
+                                    </layoutData>
+                                                </SearchField>
+                                                
+                                                <u:FileUploader
+                                                id="fileUploader"
+                                                name="myFileUpload"
+                                                uploadUrl="upload/"
+                                                buttonOnly="true"
+                                                buttonText= " "
+                                                multiple="true"
+                                                icon= "sap-icon://bar-code"
+                                                uploadComplete="handleUploadComplete"
+                                                change="handleValueChange"
+                                                typeMissmatch="handleTypeMissmatch"
+                                                style="Transparent"
+                                                fileType="txt,jpg,png"
+                                                mimeType= "image/*"
+                                                placeholder="">
+                                                    <u:parameters>
+                                                        <u:FileUploaderParameter
+                                                            name="param1"
+                                                            value="Foo"/>
+                                                        <u:FileUploaderParameter
+                                                            name="param2"
+                                                            value="bar"/>
+                                                    </u:parameters>
+                                                    <u:headerParameters>
+                                                        <u:FileUploaderParameter
+                                                            name="headerParam1"
+                                                            value="Foo"/>
+                                                        <u:FileUploaderParameter
+                                                            name="headerParam2"
+                                                            value="bar"/>
+                                                    </u:headerParameters>
+                                                </u:FileUploader>
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Cantidad">
+                                            <f:fields>
+                                                <!--Button
+                                                text="Upload File"
+                                                press="handleUploadPress"/-->
+                                                <Input value="1" id="txt_cantidad_anadir_material"></Input>
+                                                
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Ambiente">
+                                            <f:fields>
+                                                <Select items="{ path : '/dataIni/lstPreguntas/5/listaResp' }" required="true" id="com_ambiente_anadir_material">
+                                                    <core:Item key="{Codigo}" text="{= ${Codigo} === ''? 'Seleccione' : ${Descripcion}}"/>
+                                                </Select>
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="Opción Ambiente">
+                                            <f:fields>
+                                                <Select  required="true" id="com_opcion_anadir_material">
+                                                <core:Item key="" text="Ingrese la Opción"/>    
+                                                <core:Item key="01" text="01"/>
+                                                <core:Item key="02" text="02"/>
+                                                <core:Item key="03" text="03"/>
+                                                <core:Item key="04" text="04"/>
+                                                <core:Item key="05" text="05"/>
+                                                <core:Item key="06" text="06"/>
+                                            </Select>
+                                            </f:fields>
+                                        </f:FormElement>
+                                    </f:formElements>
+                                </f:FormContainer>
+                            </f:formContainers>
+                        </f:Form>
+                        <core:HTML content='&lt;img id=&quot;qr-code&quot; src=&quot;img/qrcode.png&quot; style=&quot;display:none&quot;  /&gt;'>
+                                                    
+                                                </core:HTML>
 
 						</s:content>
  
