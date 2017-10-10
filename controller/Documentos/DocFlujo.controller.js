@@ -137,6 +137,77 @@ setTimeout(function () {
             if (obj.codigo === 2) {
                 this.byId("SplitAppId").to(this.createId("pag_status_detail1"))
             }
-        }
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        handleUploadPress: function(oEvent) {
+            var oFileUploader = this.getView().byId("fileUploader");
+            if (!oFileUploader.getValue()) {
+                MessageToast.show("Choose a file first");
+                return;
+            } 
+            oFileUploader.upload();
+            var dd = oFileUploader;
+        },
+
+        handleValueChange: function(oEvent) {
+            MessageToast.show("Press 'Upload File' to upload file '" +
+                                    oEvent.getParameter("newValue") + "'");
+            this.handleUploadPress();
+            this.cargarArchivo();
+        },
+
+
+
+        cargarArchivo:function(){
+            var self = this;
+
+          var img = document.querySelector('img');
+          var canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          var ctx = canvas.getContext('2d');
+          // rotate by 90 deg
+          ctx.rotate(Math.PI);
+          ctx.translate(-img.width, -img.height);
+          ctx.drawImage(img, 0, 0);
+          // decode
+          QCodeDecoder().decodeFromImage(canvas.toDataURL(), function(err, res){
+            //document.body.appendChild(document.createTextNode(res||err))
+            var dd = document.createTextNode(res||err).nodeValue;
+            self.getView().byId("txt_codigo_anadir_material").setValue(dd);
+            });
+        },
+
+
+
+        
     });
 });
