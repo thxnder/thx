@@ -1,0 +1,67 @@
+<core:FragmentDefinition 
+    xmlns:core="sap.ui.core" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m"
+     xmlns:l="sap.ui.layout" 
+     xmlns:f="sap.ui.layout.form"
+    xmlns:t="sap.ui.table" 
+    xmlns:s="sap.m.semantic" 
+    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    	
+
+    	<Dialog title="Flujo de Documento" class="cabecera_dialogo" id="dlg_DialogDocFlujo" stretchOnPhone="true" contentWidth="25%"
+                    contentHeight="18%">
+        <content>
+
+
+                <f:Form editable="true">
+                           <!-- <f:title>
+                                <core:Title text="Address" />
+                            </f:title> -->
+                            <f:layout>
+                                <f:ResponsiveGridLayout
+                                    labelSpanXL="3"
+                                    labelSpanL="3"
+                                    labelSpanM="3"
+                                    labelSpanS="6"
+                                    adjustLabelSpan="false"
+                                    emptySpanXL="4"
+                                    emptySpanL="4"
+                                    emptySpanM="4"
+                                    emptySpanS="0"
+                                    columnsXL="1"
+                                    columnsL="1"
+                                    columnsM="1"
+                                    singleContainerFullSize="false" />
+                            </f:layout>
+                            <f:formContainers>
+                                <f:FormContainer>
+                                    <f:formElements>
+                                        <f:FormElement label="Número de Documento">
+                                            <f:fields>
+                                                <SearchField id="txt_numDoc_flujo" value="{/NumeroDocumento}" showSearchButton="false" placeholder="Ingrese Número de Doc."></SearchField>
+                                            </f:fields>
+                                        </f:FormElement>
+                                    </f:formElements>
+                                </f:FormContainer>
+                            </f:formContainers>
+                        </f:Form>
+
+
+            
+
+        </content>
+
+       
+
+
+        <beginButton>
+            <Button text="Continuar" class="btn_aceptar" type="Accion" icon="sap-icon://accept" press="onContinuarDlg_DialogDocFlujo" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" class="btn_cancelar" type="Reject" icon="sap-icon://sys-cancel" press="goHome" />
+        </endButton>
+    </Dialog>
+
+
+    </core:FragmentDefinition>

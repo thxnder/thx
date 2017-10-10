@@ -1,0 +1,197 @@
+
+<mvc:View
+	height="100%"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	controllerName="pe.com.seidor.sap.decor.ventas.controller.Documentos.DocFlujo"
+	xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form"
+    xmlns:t="sap.ui.table" 
+    xmlns:s="sap.m.semantic"
+    xmlns:u="sap.ui.unified"
+    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+		displayBlock="true">
+
+ 
+	<SplitContainer id="SplitAppId" initialMaster="MasterFlujo" initialDetail="pag_flujo_detail1" orientationChange="onOrientationChange">
+
+		<masterPages>
+
+			<s:MasterPage title="Flujo de Venta" id="MasterFlujo" class="cabeceraMaster">
+
+
+                    <List mode="SingleSelectMaster"  items="{/tipoCabeceraModel}" itemPress="onListaMasterFlujo">
+                            <items>
+                                <ObjectListItem title="{descripcion}" type="Active" ></ObjectListItem>
+                            </items>
+                        </List>
+
+
+			</s:MasterPage>
+
+
+			
+
+
+
+		</masterPages>
+
+
+		<detailPages>
+<BusyDialog id="loadingControl" />
+
+        <!--Dialogs-->
+        <!--dlg_MensajeAvisoFlujo-->
+             <core:Fragment fragmentName="pe.com.seidor.sap.decor.ventas.view.Documentos.FragDialogs.dlg_MensajeAvisoFlujo" type="XML"></core:Fragment>
+             
+        <!--dlg_DialogDocFlujo-->
+            <core:Fragment fragmentName="pe.com.seidor.sap.decor.ventas.view.Documentos.FragDialogs.dlg_DialogDocFlujoInicio" type="XML"></core:Fragment>
+
+			<s:DetailPage
+					title="Flujo de Venta" id="pag_flujo_detail1" class="cabecera_semanticDetail">
+
+						<s:content>
+                            <t:TreeTable
+                                    id="treeTable"
+                                    selectionMode="Single"
+                                    enableColumnReordering="true"
+                                    expandFirstLevel="false"
+                                    visibleRowCountMode="Auto"
+                                    rows="{
+                                        path : '/flujoTemporal1',
+                                        parameters : {
+                                            countMode: 'Inline'
+                                        }
+                                    }" class="arbolFlujo">
+
+                                    <t:columns >
+
+                                        <t:Column  width="40%" minScreenWidth="Tablet" label="Tipo de Documento" hAlign="Center">
+                                            <t:template>
+                                                <Title  text="{TipoDocumento}" wrapping="false" />
+                                            </t:template>
+                                        </t:Column>
+
+                                        <t:Column width="10%" minScreenWidth="Tablet" label="Número Doc." hAlign="Center">
+                                            <t:template>
+                                                <Text text="{NumDocumento}" wrapping="false" />
+                                            </t:template>
+                                        </t:Column>
+
+                                        <t:Column width="10%" minScreenWidth="Tablet" label="Fecha Doc." hAlign="Center">
+                                            <t:template>
+                                                <Text text="{DocFechaStr}" wrapping="false" />
+                                            </t:template>
+                                        </t:Column>
+
+                                        <t:Column width="10%" minScreenWidth="Tablet" label="Estado Doc." hAlign="Center">
+                                            <t:template>
+                                                <Text text="{Estado}" wrapping="false" />
+                                            </t:template>
+                                        </t:Column>
+
+                                        <t:Column width="20%" minScreenWidth="Tablet" label="Referencia" hAlign="Center">
+                                            <t:template>
+                                                <Text text="{Referencia}" wrapping="false"  />
+                                            </t:template>
+                                        </t:Column>
+                                        <t:Column  width="10%" minScreenWidth="Tablet" label="Acción" hAlign="Center">
+                                            <t:template>
+                                                <Button class="btnActionFlujo" icon="sap-icon://navigation-right-arrow" press="onItemTreeTable" wrapping="false" visible="{= ${TipoDocumento} === 'Entrega'? true : false }"/>
+                                            </t:template>
+                                        </t:Column>
+
+                                    </t:columns>
+
+                                </t:TreeTable>
+
+						</s:content>
+ 
+			</s:DetailPage>
+
+			
+
+
+
+            <s:DetailPage
+                    title="Flujo de Venta" id="pag_status_detail1" class="cabecera_semanticDetail">
+
+
+
+                        <s:content>
+                            <Page showHeader="false">
+                           
+        <f:Form editable="true">
+            <f:title>
+                <core:Title text="Status de Tratamiento" />
+            </f:title>
+            <f:layout>
+                <f:ResponsiveGridLayout
+                    labelSpanXL="3"
+                                    labelSpanL="3"
+                                    labelSpanM="3"
+                                    labelSpanS="5"
+                                    adjustLabelSpan="false"
+                                    emptySpanXL="4"
+                                    emptySpanL="4"
+                                    emptySpanM="4"
+                                    emptySpanS="0"
+                                    columnsXL="1"
+                                    columnsL="1"
+                                    columnsM="1"
+                                    singleContainerFullSize="false" />
+            </f:layout>
+            <f:formContainers>
+                <f:FormContainer>
+                    <f:formElements>
+                        <f:FormElement label="Status Global">
+                            <f:fields>
+                                <Input value="{/retornoFlujo/global}" editable="false" />
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement label="Status Rechazo">
+                            <f:fields>
+                                <Input value="{/retornoFlujo/rechazo}" editable="false"/>
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement label="Status Entrega">
+                            <f:fields>
+                                <Input value="{/retornoFlujo/entrega}" editable="false"/>
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement label="Status Crédito">
+                            <f:fields>
+                                <Input value="{/retornoFlujo/credito}" editable="false"/>
+                            </f:fields>
+                        </f:FormElement>
+
+                        <f:FormElement label="Status Bloque Total">
+                            <f:fields>
+                                <Input value="{/retornoFlujo/bloqueo}" editable="false"/>
+                            </f:fields>
+                        </f:FormElement>
+                        
+                    </f:formElements>
+                </f:FormContainer>
+            </f:formContainers>
+        </f:Form>
+                            
+                            </Page>
+
+                        </s:content>
+
+ 
+            </s:DetailPage>
+
+
+
+ 
+		</detailPages>
+ 
+	</SplitContainer>
+ 
+</mvc:View>

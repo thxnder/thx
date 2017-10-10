@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <title>VENTAS | DECOR CENTER</title>
+        <link type='text/css' rel='stylesheet' href='./css/style.css' />
+        <script type="text/javascript" src="./libs/moment.min.js"></script>
+        <script type="text/javascript" src="./libs/lodash.js"></script>
+
+        <!--script type="text/javascript" src="qrcode/qcode-decoder.min.js"></script-->
+        
+        <script id='sap-ui-bootstrap' src='https://sapui5.hana.ondemand.com/resources/sap-ui-core.js' data-sap-ui-theme='sap_belize' data-sap-ui-libs='sap.m' data-sap-ui-bindingSyntax='complex' data-sap-ui-language="en" data-sap-ui-resourceroots='{"pe.com.seidor.sap.decor.ventas": "./" }'>
+        </script>
+        <!--https://sapui5.hana.ondemand.com/resources/sap-ui-core.js
+        openui5-sdk-1.44.12/resources/sap-ui-core.js
+        https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js
+        -->
+        <script>
+            $(document).ready(function () {
+                ini();
+                    document.body.className = "sapUiBody";
+                    goLaunchPad();
+            });
+            function ini() {
+                window.RootServices = "http://ventas.decor-center.com/ipad_proyecto/";
+            }
+            function login() {
+                var v_usuario = $("#txt-usuario-seidor").val();
+                var v_clave = $("#txt-clave-seidor").val();
+                if (!v_usuario) {
+                    sap.m.MessageToast.show('Ingrese cuenta de usuario', {
+                        duration: 1000
+                    });
+                    return;
+                }
+                if (!v_clave) {
+                    sap.m.MessageToast.show('Ingrese clave de usuario', {
+                        duration: 1000
+                    });
+                    return;
+                }
+                var parametros = {usuario: v_usuario, clave: v_clave};
+                var ruta = window.RootServices + "login.aspx";
+                var busyDialog = new sap.m.BusyDialog("loadingControl", {customIconHeight : "32px",customIconWidth :"32px"});
+                    busyDialog.open();
+                    setTimeout(function () {
+                                $.ajax({
+                                    url: ruta,
+                                    method: "POST",
+                                    async: false,
+                                    data: parametros,
+                                    success: function (result) {
+                                        console.log(result);
+                                        window.dataIni = result;
+                                        document.body.className = "sapUiBody";
+                                        goLaunchPad();
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.log(xhr);
+                                        console.log(status);
+                                        console.log(error);
+                                        alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                                    }
+                                });
+                    busyDialog.close();
+                    }, 100);
+            }
+            function goLaunchPad() {
+                $("#login-decor").slideUp(1000);
+                $("#shadowlogin").slideUp(1000);
+                sap.ui.require([
+                    "pe/com/seidor/sap/decor/ventas/app"
+                ], function (app) {
+                    app.start();
+                });
+            }
+        </script>
+        <style>
+        </style>
+    </head>
+    <body class='loginBody'>
+        <!--div id='content_login'>
+            <div id="login-decor" class="login-seidor">
+                <input type="text" placeholder="Ingrese usuario" id="txt-usuario-seidor">  
+                <input type="password" placeholder="Ingrese clave" id="txt-clave-seidor">  
+                <input id="btnLogin" type="submit" value="Ingresar">
+            </div>
+        </div-->
+        
+        <div id='content'></div>
+    </body>
+</html>
