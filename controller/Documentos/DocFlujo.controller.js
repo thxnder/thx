@@ -180,7 +180,7 @@ setTimeout(function () {
         handleValueChange: function(oEvent) {
             MessageToast.show("Press 'Upload File' to upload file '" +
                                     oEvent.getParameter("newValue") + "'");
-            this.handleUploadPress();
+            //this.handleUploadPress();
             this.cargarArchivo();
         },
 
@@ -208,6 +208,7 @@ setTimeout(function () {
 
 
 
-        
+
+
     });
 });
