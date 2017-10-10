@@ -79,11 +79,12 @@
                                             <f:fields>
                                                 <SearchField placeholder="Ingrese Código de Material" id="txt_codigo_anadir_material" showSearchButton="false">
                                                     <layoutData>
-                                        <l:GridData span="L7 M7 S7"/>
+                                        <l:GridData span="L4 M4 S4"/>
                                     </layoutData>
                                                 </SearchField>
                                                 
                                                 <u:FileUploader
+                                                    width="20%"
                                                 id="fileUploader"
                                                 name="myFileUpload"
                                                 uploadUrl="upload/"
@@ -157,83 +158,6 @@
 						</s:content>
  
 			</s:DetailPage>
-
-			
-
-
-
-            <s:DetailPage
-                    title="Flujo de Venta" id="pag_status_detail1" class="cabecera_semanticDetail">
-
-
-
-                        <s:content>
-                            <Page showHeader="false">
-                           
-        <f:Form editable="true">
-            <f:title>
-                <core:Title text="Status de Tratamiento" />
-            </f:title>
-            <f:layout>
-                <f:ResponsiveGridLayout
-                    labelSpanXL="3"
-                                    labelSpanL="3"
-                                    labelSpanM="3"
-                                    labelSpanS="5"
-                                    adjustLabelSpan="false"
-                                    emptySpanXL="4"
-                                    emptySpanL="4"
-                                    emptySpanM="4"
-                                    emptySpanS="0"
-                                    columnsXL="1"
-                                    columnsL="1"
-                                    columnsM="1"
-                                    singleContainerFullSize="false" />
-            </f:layout>
-            <f:formContainers>
-                <f:FormContainer>
-                    <f:formElements>
-                        <f:FormElement label="Status Global">
-                            <f:fields>
-                                <Input value="{/retornoFlujo/global}" editable="false" />
-                            </f:fields>
-                        </f:FormElement>
-
-                        <f:FormElement label="Status Rechazo">
-                            <f:fields>
-                                <Input value="{/retornoFlujo/rechazo}" editable="false"/>
-                            </f:fields>
-                        </f:FormElement>
-
-                        <f:FormElement label="Status Entrega">
-                            <f:fields>
-                                <Input value="{/retornoFlujo/entrega}" editable="false"/>
-                            </f:fields>
-                        </f:FormElement>
-
-                        <f:FormElement label="Status Crédito">
-                            <f:fields>
-                                <Input value="{/retornoFlujo/credito}" editable="false"/>
-                            </f:fields>
-                        </f:FormElement>
-
-                        <f:FormElement label="Status Bloque Total">
-                            <f:fields>
-                                <Input value="{/retornoFlujo/bloqueo}" editable="false"/>
-                            </f:fields>
-                        </f:FormElement>
-                        
-                    </f:formElements>
-                </f:FormContainer>
-            </f:formContainers>
-        </f:Form>
-                            
-                            </Page>
-
-                        </s:content>
-
- 
-            </s:DetailPage>
 
 
 
