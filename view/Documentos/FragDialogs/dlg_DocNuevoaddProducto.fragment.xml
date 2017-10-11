@@ -12,6 +12,11 @@
 
     	<Dialog title="Material" class="cabecera_dialogo" id="dlg_DocNuevoaddProducto" stretchOnPhone="true" contentWidth="20%" contentHeight="40%">
         <content >
+
+            <u:FileUploader id="fileupload" name="File Uploader"
+              useMultipart="false" sendXHR="true" />
+<Button id="btnUpload" press="uploadFile" text="Upload2"></Button>
+
                     <f:Form editable="true">
                            <!-- <f:title>
                                 <core:Title text="Address" />
