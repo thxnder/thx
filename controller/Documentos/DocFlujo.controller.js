@@ -196,7 +196,7 @@ setTimeout(function () {
             MessageToast.show("Press 'Upload File' to upload file '" +
                                     oEvent.getParameter("newValue") + "'");
             //this.handleUploadPress();
-            
+            this.cargarArchivo();
         },
 
 
@@ -226,44 +226,6 @@ setTimeout(function () {
 
 
 
-
-
-
-
-        uploadFile : function(){
-
-var file = jQuery.sap.domById("__xmlview2–fileupload-fu").files[0];
-                try {
-                  if (file) {
-                    this._bUploading = true;
-                    var that = this;
-/****************To Fetch CSRF Token*******************/
-                      var a = "/Yourservice URL or Metadata URL ";
-                      var f = {
-                        headers : {
-                          "X-Requested-With" : "XMLHttpRequest",
-                          "Content-Type" : "application/atom+xml",
-                          "DataServiceVersion" : "2.0",
-                          "X-CSRF-Token" : "Fetch"
-                        },
-                        requestUri : a,
-                        method : "GET"
-                        };
-                      var oHeaders;
-                      var sUrl=oDataModel.sServiceUrl+"/Your Entity Set ";
-                      var oModel = new sap.ui.model.odata.ODataModel(sUrl, true);                     
-                      sap.ui.getCore().setModel(oModel);
-                        OData.request(f, function(data, oSuccess) {
-                          oToken = oSuccess.headers[‘x-csrf-token’];
-                               oHeaders = {
-                                            "x-csrf-token" : oToken,
-                                            "slug" : "QF",
-                                     };
-/****************To Fetch CSRF Token*******************/
-
-},
-
-/*******************To Upload File************************/
 
 
 
