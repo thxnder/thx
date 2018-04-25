@@ -1,0 +1,17 @@
+<mvc:View controllerName="com.decor.ubicaciones.controller.CUUbicar" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Page id="pgIngresar" showHeader="false">
+		<content>
+			<core:Fragment fragmentName="com.decor.ubicaciones.fragment.DialogMapa" type="XML"></core:Fragment>
+			<core:Fragment fragmentName="com.decor.ubicaciones.fragment.DialogUbicaciones" type="XML"></core:Fragment>
+			<core:Fragment fragmentName="com.decor.ubicaciones.fragment.TablaMaterialUbicacion" type="XML"></core:Fragment>
+		</content>
+		<footer>
+			<Toolbar>
+				<Button icon="sap-icon://close-command-field" text="Regresar" press="onCancelar"/>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://accept" text="Grabar" press="onAceptar"/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>
