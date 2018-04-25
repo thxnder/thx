@@ -1,0 +1,8 @@
+<mvc:View controllerName="com.decor.ubicaciones.controller.Home" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m">
+	<Page id="pgHome" showHeader="false" >
+		<content>
+			<MessagePage showHeader="false" icon="sap-icon://home" text="Aplicación de ubicaciones - Decor Center" description="Seleccione una opción"></MessagePage>
+		</content>
+	</Page>
+</mvc:View>

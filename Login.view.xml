@@ -1,0 +1,40 @@
+<mvc:View controllerName="com.decor.ubicaciones.controller.Login" 
+	xmlns:html="http://www.w3.org/1999/xhtml" 
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
+	xmlns="sap.m" 
+	xmlns:l="sap.ui.layout" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:core="sap.ui.core" 
+	xmlns:rte="sap.ui.richtexteditor">
+	<Page showHeader="false">
+		<content>
+			<FlexBox height="75%" alignItems="Center" justifyContent="Center">
+				<items>
+					<VBox class="sapUiSmallMargin">
+						<f:SimpleForm editable="true" id="frmLogin" layout="ResponsiveGridLayout" title="Login" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
+							<f:content>
+								<SearchField id="scannedValue" placeholder="" showSearchButton="false" editable="{= !${device>/barcodeScanEnabled} }" />
+								<Button icon="sap-icon://bar-code" text="Scan" tooltip="Scan barcode" visible="{device>/barcodeScanEnabled}" press="onScanForValue">
+								    <layoutData>
+								        <l:GridData span="L2 M2" />
+								    </layoutData>
+								</Button>
+
+
+								<Label text="Usuario"/>
+								<Input required="true" value="{path: '/Usuario/Cuenta'}" valueLiveUpdate="true"
+								valueStateText="{ path: '/Usuario/Cuenta', formatter: '.formatter.login.cuentaUsuario.stateMessage' }" 
+								valueState="{ path: '/Usuario/Cuenta', formatter: '.formatter.login.cuentaUsuario.state' }"/>
+								<Label text="Contraseña"/>
+								<Input type="Password" required="true" value="{path: '/Usuario/Clave'}" valueLiveUpdate="true"
+								valueStateText="{ path: '/Usuario/Clave', formatter: '.formatter.login.claveUsuario.stateMessage' }" 
+								valueState="{ path: '/Usuario/Clave', formatter: '.formatter.login.claveUsuario.state' }"></Input>
+								<Button width="100%" icon="sap-icon://unlocked" press="onLogin"/>
+							</f:content>
+						</f:SimpleForm>
+					</VBox>
+				</items>
+			</FlexBox>
+		</content>
+	</Page>
+</mvc:View>

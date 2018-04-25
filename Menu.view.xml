@@ -1,0 +1,50 @@
+<mvc:View controllerName="com.decor.ubicaciones.controller.Menu" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt">
+	<core:Fragment fragmentName="com.decor.ubicaciones.fragment.DialogCentros" type="XML"></core:Fragment>
+	<Page showHeader="false">
+		<content>
+			<tnt:ToolPage id="toolPage">
+				<tnt:header>
+					<tnt:ToolHeader>
+						<Button press="onRecepcionOC" text="Recep. por OC" type="Transparent">
+							<layoutData>
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
+							</layoutData>
+						</Button>
+						<Button press="onRecepcionTraslado" text="Recep. por Translado" type="Transparent">
+							<layoutData>
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
+							</layoutData>
+						</Button>
+						<Button text="Cambio de ubic." press="onCambioUbicacion" type="Transparent">
+							<layoutData>
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
+							</layoutData>
+						</Button>
+						<tnt:ToolHeaderUtilitySeparator/>
+						<ToolbarSpacer/>
+						<core:Icon src="sap-icon://factory" press="onOpenDialogCentros"/>
+						<Text text="{/CentroSeleccionado/NAME1}"/>
+						<core:Icon src="sap-icon://employee"/>
+						<Text text="{/Usuario/Cuenta}"/>
+						<Button press="onCerrarSession" icon="sap-icon://log" type="Transparent">
+							<layoutData>
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
+							</layoutData>
+						</Button>
+					</tnt:ToolHeader>
+				</tnt:header>
+				<tnt:mainContents>
+						<NavContainer id="navConMenu" width="100%" height="100%" class="sapUiSmallMarginBottom">
+							<pages>
+								<mvc:XMLView id="viewHome" viewName="com.decor.ubicaciones.view.Home"></mvc:XMLView>
+								<mvc:XMLView id="viewRecepcionOC" viewName="com.decor.ubicaciones.view.RecepcionOC"></mvc:XMLView>
+								<mvc:XMLView id="viewRecepcionTras" viewName="com.decor.ubicaciones.view.RecepcionTras"></mvc:XMLView>
+								<mvc:XMLView id="viewCambioUbi" viewName="com.decor.ubicaciones.view.CambioUbicacion"></mvc:XMLView>
+							</pages>
+						</NavContainer>
+				</tnt:mainContents>
+			</tnt:ToolPage>
+		</content>
+	</Page>
+</mvc:View>
