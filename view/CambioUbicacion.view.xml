@@ -1,0 +1,21 @@
+<mvc:View controllerName="com.decor.ubicaciones.controller.CambioUbicacion" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<SplitApp mode="StretchCompressMode" id="SplitApp">
+		<masterPages>
+			<Page showHeader="false">
+				<content>
+					<List includeItemInSelection="true">
+						<StandardListItem title="Ingresar" press="goIngresar" type="Active" iconDensityAware="false"	iconInset="true" icon="sap-icon://arrow-right"/>
+						<StandardListItem title="Reubicar" press="goReubicar" type="Active" iconDensityAware="false"	iconInset="true" icon="sap-icon://synchronize"/>
+						<StandardListItem title="Salida" press="goSalida" type="Active" iconDensityAware="false"	iconInset="true" icon="sap-icon://arrow-left"/>
+					</List>
+				</content>
+			</Page>
+		</masterPages>
+		<detailPages>
+			<mvc:XMLView id="viewHome" viewName="com.decor.ubicaciones.view.Home"></mvc:XMLView>
+			<mvc:XMLView id="viewIngresar" viewName="com.decor.ubicaciones.view.CUIngresar"></mvc:XMLView>
+			<mvc:XMLView id="viewUbicar" viewName="com.decor.ubicaciones.view.CUUbicar"></mvc:XMLView>
+		</detailPages>
+	</SplitApp>
+</mvc:View>

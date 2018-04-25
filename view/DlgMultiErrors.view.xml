@@ -1,0 +1,42 @@
+<mvc:View controllerName="com.decor.ubicaciones.controller.DlgMultiErrors" 
+    xmlns:html="http://www.w3.org/1999/xhtml" 
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
+    xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core" 
+    xmlns:viz="sap.viz.ui5.controls" 
+    xmlns:com="sap.suite.ui.commons" 
+    xmlns:u="sap.ui.unified">
+    <Dialog id="dlgErrores" contentHeight="60%" contentWidth="420px" title="Errores" showHeader="false">
+        <content>
+            <Table inset="false" items="{ path: '/Errores' }">
+                <columns>
+                    <Column width="40px" demandPopin="false">
+                        <Text text=""/>
+                    </Column>
+                    <Column demandPopin="true">
+                        <Text text="Mensaje"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <core:Icon src="{ path: 'TYPE', formatter: '.formatter.icono' }" color="{ path: 'TYPE', formatter: '.formatter.color' }">
+                                <core:layoutData>
+                                    <FlexItemData growFactor="1"/>
+                                </core:layoutData>
+                            </core:Icon>
+                        </cells>
+                        <cells>
+                            <Text text="{MESSAGE}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <beginButton>
+            <Button id="btnCloseDialog" text="Cerrar"/>
+        </beginButton>
+    </Dialog>
+</mvc:View>

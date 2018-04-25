@@ -1,0 +1,16 @@
+<mvc:View controllerName="com.decor.ubicaciones.controller.CUIngresar" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Page id="pgIngresar" showHeader="true" title="{/Titulo}">
+		<content>
+			<core:Fragment fragmentName="com.decor.ubicaciones.fragment.FiltroIngreso" type="XML"></core:Fragment>
+			<core:Fragment fragmentName="com.decor.ubicaciones.fragment.TablaMaterialIngreso" type="XML"></core:Fragment>
+		</content>
+		<footer>
+			<Toolbar>
+				<Button icon="sap-icon://sys-cancel" text="Cancelar" press="onCancelar"/>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://open-command-field" text="Siguiente" press="onAceptar"/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>
